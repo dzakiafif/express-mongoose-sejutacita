@@ -33,6 +33,13 @@ class UserValidator {
     static delete = [
       param('id').exists().withMessage('param id must be exist'),
     ];
+
+    static refresh = [
+      body('refreshToken').exists().withMessage('refresh token must be exist').notEmpty()
+        .withMessage('refresh token must be not empty')
+        .isString()
+        .withMessage('refresh token must be string'),
+    ]
 }
 
 export default UserValidator;

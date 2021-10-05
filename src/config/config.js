@@ -9,6 +9,7 @@ const config = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   secret: process.env.SECRET,
+  refresh_token_secret: process.env.REFRESH_TOKEN_SECRET,
 };
 
 export default config;

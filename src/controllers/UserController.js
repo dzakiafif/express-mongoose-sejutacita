@@ -17,11 +17,33 @@ class UserController {
           throw 'password not same. please check again';
         }
 
-        const token = jwt.sign({ id: checkUserByUsername._id });
+        const token = jwt.token({ id: checkUserByUsername._id });
+        const refreshToken = jwt.refreshToken({ id: checkUserByUsername._id });
 
         checkUserByUsername.token = token;
+        checkUserByUsername.refreshToken = refreshToken;
 
         return res.json(response.success(checkUserByUsername));
+      } catch (err) {
+        return res.json(response.errors(err));
+      }
+    }
+
+    static refreshToken = async (req, res) => {
+      try {
+        const { refreshToken } = req.body;
+
+        const verifyToken = jwt.verifyRefresh(refreshToken);
+        if (!verifyToken.status) {
+          return res.status(403).json(response.errors('Forbidden'));
+        }
+
+        const token = jwt.token({ id: verifyToken.decode.id });
+
+        const responseApi = {
+          token,
+        };
+        return res.json(response.success(responseApi));
       } catch (err) {
         return res.json(response.errors(err));
       }
@@ -64,6 +86,18 @@ class UserController {
 
         const result = await UserService.updateUser({ id, fullname, password });
         return res.json(response.success(result));
+      } catch (err) {
+        return res.json(response.errors(err));
+      }
+    }
+
+    static profile = async (req, res) => {
+      try {
+        const { _id } = req.user;
+
+        const user = await UserService.findUserById({ id: _id });
+
+        return res.json(response.success(user));
       } catch (err) {
         return res.json(response.errors(err));
       }

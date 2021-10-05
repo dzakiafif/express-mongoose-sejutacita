@@ -2,14 +2,12 @@ import Users from '../models/Users';
 
 class UserService {
     static createUser = async ({ fullname, username, password }) => {
-      const result = new Users({
+      const result = await new Users({
         fullname,
         username,
         password,
         role: 'USER',
-      });
-
-      await result.save();
+      }).save();
 
       return result;
     }

@@ -21,7 +21,7 @@ class UserController {
         const refreshToken = jwt.refreshToken({ id: checkUserByUsername._id });
 
         checkUserByUsername.token = token;
-        checkUserByUsername.refreshToken = refreshToken;
+        checkUserByUsername.refresh_token = refreshToken;
 
         return res.json(response.success(checkUserByUsername));
       } catch (err) {

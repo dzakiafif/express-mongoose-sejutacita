@@ -1,0 +1,33 @@
+{
+  "name": "express-mongoose-sejutacita",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "seed": "node src/seeders/UserSeeders.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src --exec babel-node",
+    "format": "npx eslint src --fix"
+  },
+  "author": "dzaki",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.8",
+    "mongoose-seed": "^0.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/eslint-parser": "^7.15.7",
+    "@babel/node": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "nodemon": "^2.0.13"
+  }
+}

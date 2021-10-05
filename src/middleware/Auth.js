@@ -1,6 +1,7 @@
 import { validationResult } from 'express-validator';
 import * as response from '../utils/Response';
 import Jwt from '../utils/Jwt';
+import Users from '../models/Users';
 
 class AuthMiddleware {
   static Guest = (req, res, next) => this.handler('guest', req, res, next);
@@ -38,13 +39,15 @@ class AuthMiddleware {
 
     if (!authorization) return unauthorized();
 
-    const bearerAuth = (token) => {
+    const bearerAuth = async (token) => {
       const verifyToken = Jwt.verify(token);
       if (!verifyToken.status) {
         return res.status(403).json(response.errors('Forbidden'));
       }
 
-      req.decoded = verifyToken.decode;
+      const user = await Users.findById(verifyToken.decode.id);
+
+      req.user = user;
 
       return next();
     };
@@ -63,6 +66,14 @@ class AuthMiddleware {
       return unauthorized();
     }
   };
+
+  static authorize = (...roles) => (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(400).json(response.errors(`User with role ${req.user.role} not authorized to this api`));
+    }
+
+    return next();
+  }
 }
 
 export default AuthMiddleware;

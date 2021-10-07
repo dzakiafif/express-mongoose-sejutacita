@@ -5,15 +5,15 @@ import UserValidator from '../validators/UserValidator';
 
 const router = express.Router();
 
-router.post('/login', [AuthMiddleware.Guest, UserValidator.login], UserController.login);
-router.post('/refresh-token', [AuthMiddleware.Guest, UserValidator.refresh], UserController.refreshToken);
+router.post('/login', [UserValidator.login, AuthMiddleware.Guest], UserController.login);
+router.post('/refresh-token', [UserValidator.refresh, AuthMiddleware.Guest], UserController.refreshToken);
 router.post('/create-user', [
+  UserValidator.create,
   AuthMiddleware.Auth,
-  AuthMiddleware.authorize('ADMIN'),
-  UserValidator.create], UserController.create);
+  AuthMiddleware.authorize('ADMIN')], UserController.create);
 router.get('/profile', [AuthMiddleware.Auth, AuthMiddleware.authorize('USER')], UserController.profile);
 router.get('/list-user', [AuthMiddleware.Auth, AuthMiddleware.authorize('ADMIN')], UserController.list);
-router.put('/update-user/:id', [AuthMiddleware.Auth, AuthMiddleware.authorize('ADMIN'), UserValidator.update], UserController.update);
-router.delete('/delete-user/:id', [AuthMiddleware.Auth, AuthMiddleware.authorize('ADMIN'), UserValidator.delete], UserController.delete);
+router.put('/update-user/:id', [UserValidator.update, AuthMiddleware.Auth, AuthMiddleware.authorize('ADMIN')], UserController.update);
+router.delete('/delete-user/:id', [UserValidator.delete, AuthMiddleware.Auth, AuthMiddleware.authorize('ADMIN')], UserController.delete);
 
 export default router;

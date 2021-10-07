@@ -1,9 +1,16 @@
-const success = (data) => {
+const success = (data = null, message = null) => {
   const response = {
     status: 'success',
     code: 200,
-    data,
   };
+
+  if (data) {
+    response.data = data;
+  }
+
+  if (message) {
+    response.message = message;
+  }
 
   return response;
 };

@@ -1,4 +1,5 @@
 import Users from '../models/Users';
+import * as encryption from '../utils/Encryption';
 
 class UserService {
     static createUser = async ({ fullname, username, password }) => {
@@ -27,10 +28,10 @@ class UserService {
       return result;
     }
 
-    static updateUser = async ({ id, fullname, password }) => {
+    static updateUser = async ({ id, name, password }) => {
       const updateUser = await Users.findByIdAndUpdate(id, {
-        fullname,
-        password,
+        fullname: name,
+        password: encryption.generatedHash(password),
       });
       const result = await Users.findById(updateUser._id);
       return result;

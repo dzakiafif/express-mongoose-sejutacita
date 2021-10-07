@@ -8,6 +8,13 @@ const data = [{
   role: 'ADMIN',
   created_at: new Date(),
   updated_at: new Date(),
+}, {
+  fullname: 'user dummy',
+  username: 'dummy',
+  password: '1q2w3e',
+  role: 'USER',
+  created_at: new Date(),
+  updated_at: new Date(),
 }];
 
 class AdminSeeder extends Seeder {

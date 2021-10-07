@@ -77,14 +77,14 @@ class UserController {
     static update = async (req, res) => {
       try {
         const { id } = req.params;
-        const { password, fullname } = req.body;
+        const { password, name } = req.body;
 
         const checkUserById = await UserService.findUserById({ id });
         if (checkUserById === null) {
           throw `data with id ${id} not found`;
         }
 
-        const result = await UserService.updateUser({ id, fullname, password });
+        const result = await UserService.updateUser({ id, name, password });
         return res.json(response.success(result));
       } catch (err) {
         return res.json(response.errors(err));

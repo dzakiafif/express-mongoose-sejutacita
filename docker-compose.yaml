@@ -4,18 +4,17 @@ services:
         build: '.'
         container_name: apinode
         links:
-            - mysqldb
+            - mongo
         ports:
             - "8000:8000"
         volumes:
             - ".:/usr/src/app"
-            - "/usr/src/app/node_modules"
         networks:
             - app-network
 
-    mongodb:
-        image: mongo:5.0.3-focal
-        container_name: mongodb
+    mongo:
+        image: mongo:4.4-focal
+        container_name: mongo
         networks:
             - app-network
 

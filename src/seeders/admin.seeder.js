@@ -1,11 +1,10 @@
 import { Seeder } from 'mongoose-data-seed';
 import Users from '../models/Users';
-import * as encryption from '../utils/Encryption';
 
 const data = [{
   fullname: 'administrator',
   username: 'admin',
-  password: encryption.generatedHash('1q2w3e'),
+  password: '1q2w3e',
   role: 'ADMIN',
   created_at: new Date(),
   updated_at: new Date(),
